@@ -1,48 +1,24 @@
-# services:
-#   postgres:
-#     image: postgres:14-alpine
-#     environment:
-#       POSTGRES_DB: constrution_db
-#       POSTGRES_USER: admin01
-#       POSTGRES_PASSWORD: admin1234
-#     ports:
-#       - "5432:5432"
-
-#   pgadmin:
-#     image: dpage/pgadmin4
-#     environment:
-#       PGADMIN_DEFAULT_EMAIL: admin@dpu.ac.th
-#       PGADMIN_DEFAULT_PASSWORD: admin
-#     ports:
-#       - "5050:80"
-#     depends_on:
-#       - postgres
-
-version: '3'
 services:
   postgres:
     image: postgres:14-alpine
     environment:
+      POSTGRES_DB: constrution_db
       POSTGRES_USER: admin01
       POSTGRES_PASSWORD: admin1234
-      POSTGRES_DB: constrution_db
-    volumes:
-      - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # เพิ่มที่เก็บข้อมูล  
 
   pgadmin:
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_EMAIL: admin@dpu.ac.th
       PGADMIN_DEFAULT_PASSWORD: admin
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
     ports:
-      - "8080:80"
+      - "5050:80"
     depends_on:
       - postgres
 
 volumes:
-  pgdata:
-  pgadmin_data:
+  pgdata:  # ประกาศ volume สำหรับ PostgreSQL
